@@ -1,0 +1,51 @@
+body {
+    background: #fff url('images/background.jpeg');
+}
+
+.navbar {
+    border-radius: 0;
+}
+
+.navbar-brand {
+    font-family: "Satisfy", cursive;
+}
+
+#indexPanel {
+    background-color: rgba(0, 0, 0, 0.65);
+    border-radius: 20px;
+}
+
+#indexPanel a {
+    font-weight: bold;
+}
+
+#indexPanel:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #32aac5 !important;
+    text-decoration: none !important;
+}
+
+#indexPanel a {
+    text-decoration: none !important;
+    color: #41b8ff !important;
+}
+
+#indexPanel h3 {
+    color: gainsboro;
+}
+
+@media screen and (max-width: 768px) {
+    #albumCover {
+        width: 100% !important;
+        max-height: 100% !important;
+    }
+
+    .songs {
+        font-size: 15px !important;
+    }
+
+    .indexPanel {
+        width: 50% !important;
+    }
+}
+

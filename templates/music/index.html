@@ -1,0 +1,34 @@
+{% extends 'music/base.html' %}
+
+
+{% block body %}
+
+    {% if all_albums %}
+
+        <div class="container-fluid">
+
+            <div class="row">
+                {% for album in all_albums %}
+                    <center>
+                        <a href="{% url 'music:detail' album.id %}">
+                            <div class="col-sm-2">
+                                <div class="panel panel-default" id="indexPanel">
+                                    <div class="panel-body">
+                                        <img src="{{ album.album_cover.url }}" width="130px" height="130px"/>
+                                        <h3>{{ album.artist }}</h3>
+                                        <h5 style="color: #fff"> {{ album.genre }}</h5>
+                                        <strong>{{ album.album_title }}</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </center>
+                {% endfor %}
+            </div>
+
+        </div>
+    {% else %}
+        <h3>You don't have any albums</h3>
+    {% endif %}
+
+{% endblock %}

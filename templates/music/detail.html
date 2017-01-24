@@ -1,7 +1,6 @@
 {% extends 'music/base.html' %}
-
-{% block title %}Album Details{% endblock %}
-
+{% block title %}{{ album }}{% endblock %}
+{% block albums_active %}active{% endblock %}
 {% block body %}
 
     <style>
@@ -32,7 +31,7 @@
                         <h3><strong>{{ album.album_title }}</strong></h3>
                         <span style="color:#747474;font-size:20px">Genre: {{ album.genre }}</span> <br /><br />
 
-                        <a href="{% url 'music:song-add' album.id %}"> <button type="button" class="btn btn-default">Add Songs</button></a><br /><br />
+                        <a href="{% url 'music:create_song' album.id %}"> <button type="button" class="btn btn-default">Add Songs</button></a><br /><br />
                         <ul>
                             {% for song in album.song_set.all %}
                                 <li style="list-style-type:none;font-size:18px" class="songs">
@@ -61,10 +60,13 @@
 
     <script type="text/javascript">
 
-        $(document).ready(function() {
+        function coverResize() {
             $('#albumCover').height($('.panel').height());
             $('#albumCover').width($('.col-sm-4').width());
-        });
+        }
+
+        document.addEventListener("DOMContentLoaded", coverResize);
+        window.onresize = coverResize;
 
         function showPopup(url) {
             var new_window = window.open(url, 'Youtube', 'resizable=1,statusbars=0,menubars=0,titlebar=0,toolbars=0,width=500,height=500,left=750,top=300');

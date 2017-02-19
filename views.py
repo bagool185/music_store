@@ -5,8 +5,11 @@ from .forms import AlbumForm, SongForm, UserForm
 from django.http import HttpResponseRedirect
 from django.utils.http import urlencode
 from django.contrib.auth import logout
+from django.conf import settings
 from .models import Album, Song
 from django.db.models import Q
+
+import os
 
 IMAGE_FILE_TYPES = ['png', 'jpg', 'jpeg']
 
@@ -66,6 +69,8 @@ def create_song(request, album_id):
 @never_cache
 def delete_album(request, album_id):
     album = Album.objects.get(pk=album_id)
+    path = os.path.join(settings.MEDIA_ROOT, str(album.album_cover))
+    os.remove(str(path))
     album.delete()
     albums = Album.objects.filter(user=request.user)
     return render(request, 'music/index.html', {'albums': albums})

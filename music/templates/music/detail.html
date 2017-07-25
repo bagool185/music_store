@@ -1,0 +1,62 @@
+{% extends 'music/base.html' %}
+{% block title %}{{ album }}{% endblock %}
+{% block albums_active %}active{% endblock %}
+{% block body %}
+
+    <style>
+    body {
+        background: url({{ album.album_cover.url }});
+        background-size: cover;
+    }
+    </style>
+
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-sm-4">
+                <img src="{{ album.album_cover.url }}" id="albumCover" alt="{{ album.album_title }}"/>
+            </div>
+
+
+            <div class="col-sm-8">
+                <div class="panel panel-default" id="details">
+                    
+                    <div class="panel-body">
+                        <h1>{{ album.artist }}</h1>
+                        <h3><strong>{{ album.album_title }} ({{ album.year_of_release }})</strong></h3>
+                        <span style="color:#747474;font-size:20px">Genre: {{ album.genre }}</span> <br /><br />
+
+                        <a href="{% url 'music:create_song' album.id %}"> <button type="button" class="btn" style="background-color=rgb(36, 50, 52);">Add Songs</button></a><br /><br />
+                        <ul id="items">
+                            {% for song in album.song_set.all %}
+                                <li style="list-style-type:none;font-size:18px" class="songs">
+                                    <a target="_blank" href="http://www.youtube.com/results?search_query={{ album.artist }} - {{ song.song_title }}"
+                                        onclick="showPopup(this.href); return false;" id="song">
+                                        <button class="btn btn-xs">
+                                            <span class="glyphicon glyphicon-play-circle"></span>
+                                        </button>
+                                    &nbsp;&nbsp;{{ song.song_title }}
+                                    </a>  <br /> <br />
+                                </li>
+                            {% endfor %}
+                        </ul>
+
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+    <script type="text/javascript">
+        coverResize();
+
+        document.addEventListener("DOMContentLoaded", coverResize);
+        window.onresize = coverResize;
+    </script>
+
+{% endblock %}

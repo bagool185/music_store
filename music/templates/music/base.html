@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{{ user }}'s Albums{% endblock %}</title>
+     {% load staticfiles  %}
+    <!-- Latest compiled and minified CSS -->
+
+    <link rel="stylesheet" type="text/css" href="{% static 'music/styles/bootstrap.min.css' %}" />
+   
+    <link rel="stylesheet" type="text/css" href="{% static 'music/styles/style.css' %}"/>
+    <link rel="shortcut icon" type="image/png" href="{%  static 'music/images/icon.png' %}"/>
+
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+    <div class="container fluid">
+
+        <!-- Logo -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#topNavBar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{% url 'music:index' %}">{{ user }}</a>
+        </div>
+
+        <!-- Items -->
+        <div class="collapse navbar-collapse" id="topNavBar">
+            <ul class="nav navbar-nav">
+               <li class="{% block albums_active %}{% endblock %}"><a href="{% url 'music:index' %}">
+                   <span class="glyphicon glyphicon-cd" aria-hidden="true"></span> &nbsp; Albums</a>
+               </li>
+                <li class="{% block songs_active %}{% endblock %}"><a href="{% url 'music:songs' 'all' %}">
+                    <span class="glyphicon glyphicon-music"></span></span> &nbsp; Songs</a>
+                </li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li class="{% block add_albums_active %}{%endblock %}">
+                    <a href="{% url 'music:create_album' %}">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;
+                        Add Album
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'music:logout_user' %}">
+                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;
+                        Log out
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+
+    </div>
+</nav>
+
+{% block body %}
+{% endblock %}
+
+</body>
+<script src="{% static 'music/scripts/main.js' %}"></script>
+<script src="{% static 'music/scripts/jquery.min.js' %}"></script>
+<script src="{% static 'music/scripts/bootstrap.min.js' %}"></script>
+</html>
